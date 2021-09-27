@@ -3,11 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from "axios";
 
 
-Vue.prototype.$axios = axios
-axios.defaults.baseURL = "http://localhost:8086"
+// import axios from "axios";
+// Vue.prototype.$axios = axios
+// axios.defaults.baseURL = "http://localhost:8086"
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

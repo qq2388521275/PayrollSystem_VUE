@@ -1,27 +1,31 @@
 <template>
   <div id="app">
-    <h3><router-link to="/test">test画面</router-link></h3>
-    <router-view/>
+    <h1>App.Vue</h1>
+    <button id="helloBtn" @click="helloBtnClick">hello按钮</button>
+    <a>{{ helloMsg }}</a>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data(){
-    return{
-
+  data() {
+    return {
+      helloMsg: '',
     }
   },
-  //实现跨域
-  created() {
-    // axios方式发送请求
-    this.$axios.get("/api/hello").then(res=>{
-      alert(res)
-    })
+  methods: {
+    helloBtnClick() {
+      fetch("/api/hello", {
+        method: "get",
+      }).then(res => {
+        return res.json()
+      })
+        .then(res => this.helloMsg = JSON.stringify(res.content))
+    }
   }
-
 }
+
 </script>
 
 <style>
@@ -32,5 +36,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#helloBtn {
+  width: 100px;
+  height: 60px;
 }
 </style>

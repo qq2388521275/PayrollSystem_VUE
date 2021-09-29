@@ -1,26 +1,23 @@
 <template>
   <div id="main">
-    <div id="helloQuery">
-      <h1>  工资管理系统</h1>
-      <button id="helloQueryBtn" @click="helloQueryBtnClick">查询</button>
-      <a>{{ helloMsg }}</a>
+
+    <div id="title">
+      <h1>登录系统</h1>
     </div>
 
-    <div id="helloAdd">
-      <input placeholder="待插入文本" type="text" v-model="addMsg">
-      <button id="helloAddBtn" @click="helloAddBtnClick">添加</button>
+    <div id="userInput">
+      <div id="userName_Input">
+        <input placeholder="用户名" type="text" v-model="userName">
+      </div>
+      <div id="helloDelete_Input">
+        <input placeholder="密码" type="password" v-model="password">
+      </div>
     </div>
 
-    <div id="helloDelete">
-      <input placeholder="待删除文本" type="text" v-model="deleteMsg">
-      <button id="helloDeleteBtn" @click="helloDeleteBtnClick">删除</button>
+    <div id="login">
+      <button id="loginBtn" @click="loginBtnClick">登录</button>
     </div>
 
-    <div id="helloUpdate">
-      <input placeholder="修改前" type="text" v-model="updateOldMsg">
-      <input placeholder="修改后" type="text" v-model="updateNewMsg">
-      <button id="helloUpdateBtn" @click="helloUpdateBtnClick">修改</button>
-    </div>
   </div>
 
 </template>
@@ -30,60 +27,36 @@ export default {
   name: 'App',
   data() {
     return {
-      helloMsg: '',
-      addMsg: '',
-      deleteMsg: '',
-      updateOldMsg: '',
-      updateNewMsg: '',
+      userName: '',
+      password: '',
     }
   },
   methods: {
-    helloQueryBtnClick() {
-      fetch("/hello", {
-        method: "get",
-      }).then(res => {
-        return res.json()
-      })
-        .then(res => this.helloMsg = JSON.stringify(res.content))
-    },
-
-    helloAddBtnClick() {
-      if (this.addMsg === '') {
-        alert("无法插入空值")
-      } else {
-        fetch('/hello/add?msg=' + this.addMsg, {
-          method: 'get',
-        }).then(this.helloQueryBtnClick)
-      }
-    },
-
-    helloDeleteBtnClick() {
-      fetch('/hello/delete?msg=' + this.deleteMsg, {
+    loginBtnClick() {
+      fetch('/login?uid=' + this.userName + "&ans=" + this.password, {
         method: 'get',
-      }).then(this.helloQueryBtnClick)
-    },
-
-    helloUpdateBtnClick() {
-      fetch('/hello/update?oldMsg=' + this.updateOldMsg + "&newMsg=" + this.updateNewMsg, {
-        method: 'get',
-      }).then(this.helloQueryBtnClick)
+      }).then(res => res.json())
+      .then(res => alert(JSON.stringify(res.content)))
     }
   }
 }
-
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#main {
+  position: fixed;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 
-#helloQueryBtn {
+#userInput {
+  display: inline-block;
+}
+
+#login {
+  display: inline-block;
+}
+
+#loginBtn {
   width: 100px;
   height: 60px;
 }

@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueCookies from 'vue-cookies'
 
+Vue.use(VueCookies)
 
 // import axios from "axios";
 // Vue.prototype.$axios = axios

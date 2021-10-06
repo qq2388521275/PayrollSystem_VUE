@@ -6,7 +6,7 @@
     </div>
 
     <div id="timeCards">
-      <table>
+      <table style="width: 100%;text-align: center">
         <thead>
         <tr>
           <th></th>
@@ -60,7 +60,7 @@
       </table>
 
       <div id="saveCards">
-        <button id="saveCardsBtn" @click="jumpToHello">跳转</button>
+        <button id="saveCardsBtn" @click="jumpToHello">保存</button>
       </div>
     </div>
 
@@ -112,8 +112,10 @@ export default {
 <style>
 #main {
   position: fixed;
-  text-align: center;
   float: left;
+  height: 100%;
+  max-width: 80%;
+  text-align: center;
 }
 
 table {
@@ -126,7 +128,6 @@ th, td {
   background-color: white;
   padding: 8px 16px;
   border: 1px solid #e9e9e9;
-  text-align: left;
 }
 
 th {
@@ -137,8 +138,10 @@ th {
 
 #saveCardsBtn {
   margin-top: 5%;
-  width: 40%;
+  width: 20%;
   padding: 2%;
+  font-size: 30px;
+  max-width: 50%;
 }
 
 

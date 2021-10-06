@@ -15,7 +15,7 @@
     </div>
 
     <div id="login">
-      <button id="loginBtn" @click="loginBtnClick">登录1</button>
+      <button id="loginBtn" @click="loginBtnClick">登录</button>
     </div>
 
   </div>

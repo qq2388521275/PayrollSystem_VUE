@@ -21,7 +21,7 @@
           <td><input id="MonStartInput" placeholder="上班时间" type="time" v-model="cards.Mon.start"></td>
           <td><input id="MonEndInput" placeholder="下班时间" type="time" v-model="cards.Mon.end"></td>
           <td>
-            <button id="MonSubmit" @click="submitOneCard(1)">提交</button>
+            <button id="MonSubmit" @click="confirmSubmit(1)">提交</button>
           </td>
         </tr>
         <tr>
@@ -29,7 +29,7 @@
           <td><input id="TueStartInput" placeholder="上班时间" type="time" v-model="cards.Tue.start"></td>
           <td><input id="TueEndInput" placeholder="下班时间" type="time" v-model="cards.Tue.end"></td>
           <td>
-            <button id="TueSubmit" @click="submitOneCard(2)">提交</button>
+            <button id="TueSubmit" @click="confirmSubmit(2)">提交</button>
           </td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
           <td><input id="WedStartInput" placeholder="上班时间" type="time" v-model="cards.Wed.start"></td>
           <td><input id="WedEndInput" placeholder="下班时间" type="time" v-model="cards.Wed.end"></td>
           <td>
-            <button id="WedSubmit" @click="submitOneCard(3)">提交</button>
+            <button id="WedSubmit" @click="confirmSubmit(3)">提交</button>
           </td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@
           <td><input id="ThuStartInput" placeholder="上班时间" type="time" v-model="cards.Thu.start"></td>
           <td><input id="ThuEndInput" placeholder="下班时间" type="time" v-model="cards.Thu.end"></td>
           <td>
-            <button id="ThuSubmit" @click="submitOneCard(4)">提交</button>
+            <button id="ThuSubmit" @click="confirmSubmit(4)">提交</button>
           </td>
         </tr>
         <tr>
@@ -53,7 +53,7 @@
           <td><input id="FriStartInput" placeholder="上班时间" type="time" v-model="cards.Fri.start"></td>
           <td><input id="FriEndInput" placeholder="下班时间" type="time" v-model="cards.Fri.end"></td>
           <td>
-            <button id="FriSubmit" @click="submitOneCard(5)">提交</button>
+            <button id="FriSubmit" @click="confirmSubmit(5)">提交</button>
           </td>
         </tr>
         </tbody>
@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     querySheet(id) {
-      fetch('/api/apis/Sheet/query?eid=' + id, {method: 'get'})
+      fetch('/apis/Sheet/query?eid=' + id, {method: 'get'})
         .then(res => res.json())
         .then(res => this.parseQuery(res.content))
     },
@@ -157,87 +157,96 @@ export default {
       );
       this.checkCommitted();
     },
-    //根据commit字段修改按钮
+    //根据commit字段和今日星期，确定信息是否可修改
     checkCommitted() {
-      if (this.cards.Mon.commit === 1) {
+      let week = new Date().getDay();
+      if (week === 0)
+        week = 7;
+      if (this.cards.Mon.commit === 1 || week < 1) {
         document.getElementById("MonSubmit").disabled = true;
         document.getElementById("MonStartInput").disabled = true;
         document.getElementById("MonEndInput").disabled = true;
       }
-      if (this.cards.Tue.commit === 1) {
+      if (this.cards.Tue.commit === 1 || week < 2) {
         document.getElementById("TueSubmit").disabled = true;
         document.getElementById("TueStartInput").disabled = true;
         document.getElementById("TueEndInput").disabled = true;
       }
-      if (this.cards.Wed.commit === 1) {
+      if (this.cards.Wed.commit === 1 || week < 3) {
         document.getElementById("WedSubmit").disabled = true;
         document.getElementById("WedStartInput").disabled = true;
         document.getElementById("WedEndInput").disabled = true;
       }
-      if (this.cards.Thu.commit === 1) {
+      if (this.cards.Thu.commit === 1 || week < 4) {
         document.getElementById("ThuSubmit").disabled = true;
         document.getElementById("ThuStartInput").disabled = true;
         document.getElementById("ThuEndInput").disabled = true;
       }
-      if (this.cards.Fri.commit === 1) {
+      if (this.cards.Fri.commit === 1 || week < 5) {
         document.getElementById("FriSubmit").disabled = true;
         document.getElementById("FriStartInput").disabled = true;
         document.getElementById("FriEndInput").disabled = true;
+      }
+    },
+    confirmSubmit(weekend) {
+      let confirm = window.confirm('确认提交吗，提交后将不可修改');
+      if (confirm === true) {
+        this.submitOneCard(weekend);
       }
     },
     submitOneCard(weekend) {
       switch (weekend) {
         case 1:
           if (this.cards.Mon.aid == null) {
-            fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+            fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
               + '&workstart=' + this.cards.Mon.start + '&workend=' + this.cards.Mon.end + '&weekday=1&commit=1',
               {method: 'get'})
           } else {
-            fetch('/api/apis/Sheet/update?aid=' + this.cards.Mon.aid
+            fetch('/apis/Sheet/update?aid=' + this.cards.Mon.aid
               + '&workstart=' + this.cards.Mon.start + '&workend=' + this.cards.Mon.end + '&commit=1',
               {method: 'get'})
           }
           break
         case 2:
           if (this.cards.Tue.aid == null) {
-            fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+            fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
               + '&workstart=' + this.cards.Tue.start + '&workend=' + this.cards.Tue.end + '&weekday=2&commit=1',
               {method: 'get'})
           } else {
-            fetch('/api/apis/Sheet/update?aid=' + this.cards.Tue.aid
+            fetch('/apis/Sheet/update?aid=' + this.cards.Tue.aid
               + '&workstart=' + this.cards.Tue.start + '&workend=' + this.cards.Tue.end + '&commit=1',
               {method: 'get'})
           }
           break
         case 3:
           if (this.cards.Wed.aid == null) {
-            fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+            fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
               + '&workstart=' + this.cards.Wed.start + '&workend=' + this.cards.Wed.end + '&weekday=3&commit=1',
               {method: 'get'})
           } else {
-            fetch('/api/apis/Sheet/update?aid=' + this.cards.Wed.aid
+            fetch('/apis/Sheet/update?aid=' + this.cards.Wed.aid
               + '&workstart=' + this.cards.Wed.start + '&workend=' + this.cards.Wed.end + '&commit=1',
               {method: 'get'})
           }
           break
         case 4:
           if (this.cards.Thu.aid == null) {
-            fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+            fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
               + '&workstart=' + this.cards.Thu.start + '&workend=' + this.cards.Thu.end + '&weekday=4&commit=1',
               {method: 'get'})
           } else {
-            fetch('/api/apis/Sheet/update?aid=' + this.cards.Thu.aid
+            fetch('/apis/Sheet/update?aid=' + this.cards.Thu.aid
               + '&workstart=' + this.cards.Thu.start + '&workend=' + this.cards.Thu.end + '&commit=1',
               {method: 'get'})
           }
           break
         case 5:
           if (this.cards.Fri.aid == null) {
-            fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+            fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
               + '&workstart=' + this.cards.Fri.start + '&workend=' + this.cards.Fri.end + '&weekday=5&commit=1',
               {method: 'get'})
           } else {
-            fetch('/api/apis/Sheet/update?aid=' + this.cards.Fri.aid
+            fetch('/apis/Sheet/update?aid=' + this.cards.Fri.aid
               + '&workstart=' + this.cards.Fri.start + '&workend=' + this.cards.Fri.end + '&commit=1',
               {method: 'get'})
           }
@@ -250,11 +259,11 @@ export default {
     saveAllCards() {
       if (this.cards.Mon.start !== '' && this.cards.Mon.commit !== '' && this.cards.Mon.commit !== 1) {
         if (this.cards.Mon.aid == null) {
-          fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+          fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
             + '&workstart=' + this.cards.Mon.start + '&workend=' + this.cards.Mon.end + '&weekday=1&commit=0',
             {method: 'get'})
         } else {
-          fetch('/api/apis/Sheet/update?aid=' + this.cards.Mon.aid
+          fetch('/apis/Sheet/update?aid=' + this.cards.Mon.aid
             + '&workstart=' + this.cards.Mon.start + '&workend=' + this.cards.Mon.end + '&commit=0',
             {method: 'get'})
         }
@@ -262,11 +271,11 @@ export default {
 
       if (this.cards.Tue.start !== '' && this.cards.Tue.commit !== '' && this.cards.Tue.commit !== 1) {
         if (this.cards.Tue.aid == null) {
-          fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+          fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
             + '&workstart=' + this.cards.Tue.start + '&workend=' + this.cards.Tue.end + '&weekday=2&commit=0',
             {method: 'get'})
         } else {
-          fetch('/api/apis/Sheet/update?aid=' + this.cards.Tue.aid
+          fetch('/apis/Sheet/update?aid=' + this.cards.Tue.aid
             + '&workstart=' + this.cards.Tue.start + '&workend=' + this.cards.Tue.end + '&commit=0',
             {method: 'get'})
         }
@@ -274,11 +283,11 @@ export default {
 
       if (this.cards.Wed.start !== '' && this.cards.Wed.commit !== '' && this.cards.Wed.commit !== 1) {
         if (this.cards.Wed.aid == null) {
-          fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+          fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
             + '&workstart=' + this.cards.Wed.start + '&workend=' + this.cards.Wed.end + '&weekday=3&commit=0',
             {method: 'get'})
         } else {
-          fetch('/api/apis/Sheet/update?aid=' + this.cards.Wed.aid
+          fetch('/apis/Sheet/update?aid=' + this.cards.Wed.aid
             + '&workstart=' + this.cards.Wed.start + '&workend=' + this.cards.Wed.end + '&commit=0',
             {method: 'get'})
         }
@@ -286,11 +295,11 @@ export default {
 
       if (this.cards.Thu.start !== '' && this.cards.Thu.commit !== '' && this.cards.Thu.commit !== 1) {
         if (this.cards.Thu.aid == null) {
-          fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+          fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
             + '&workstart=' + this.cards.Thu.start + '&workend=' + this.cards.Thu.end + '&weekday=4&commit=0',
             {method: 'get'})
         } else {
-          fetch('/api/apis/Sheet/update?aid=' + this.cards.Thu.aid
+          fetch('/apis/Sheet/update?aid=' + this.cards.Thu.aid
             + '&workstart=' + this.cards.Thu.start + '&workend=' + this.cards.Thu.end + '&commit=0',
             {method: 'get'})
         }
@@ -298,19 +307,17 @@ export default {
 
       if (this.cards.Fri.start !== '' && this.cards.Fri.commit !== '' && this.cards.Fri.commit !== 1) {
         if (this.cards.Fri.aid == null) {
-          fetch('/api/apis/Sheet/add?eid=' + this.$cookies.get('userName')
+          fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
             + '&workstart=' + this.cards.Fri.start + '&workend=' + this.cards.Fri.end + '&weekday=5&commit=0',
             {method: 'get'})
         } else {
-          fetch('/api/apis/Sheet/update?aid=' + this.cards.Fri.aid
+          fetch('/apis/Sheet/update?aid=' + this.cards.Fri.aid
             + '&workstart=' + this.cards.Fri.start + '&workend=' + this.cards.Fri.end + '&commit=0',
             {method: 'get'})
         }
       }
-      this.$alert('测试')
-      setTimeout(() => {
-        this.querySheet(this.$cookies.get('userName'))
-      }, 300)
+      window.alert('保存成功');
+      this.querySheet(this.$cookies.get('userName'));
     },
   }
 }
@@ -344,11 +351,52 @@ th {
 }
 
 #saveCardsBtn {
+  position: relative;
+  top: 0;
+  border: 0;
+  cursor: pointer;
+  background: #9ccc65;
+  color: white;
+  border-radius: 3px;
+  line-height: 1;
+  font-size: 25px;
+  padding: 15px 25px;
+  outline: 0;
   margin-top: 5%;
   width: 20%;
-  padding: 2%;
-  font-size: 30px;
-  max-width: 50%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+  background: linear-gradient(-45deg, #9ccc65 50%, #699833 60%, #9ccc65 70%);
+  background-size: 600% 100%;
+  -webkit-animation: shine 20s infinite;
+  animation: shine 20s infinite;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+@-webkit-keyframes shine {
+  0% {
+    background-position-x: 400%;
+  }
+  50% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: -400%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position-x: 400%;
+  }
+  50% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: -400%;
+  }
 }
 
 input {

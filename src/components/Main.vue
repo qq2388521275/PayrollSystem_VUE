@@ -8,7 +8,7 @@
         <b>工资管理</b>
       </div>
       <div id="sideHrefs" style="margin-top: 10%;margin-left: 8%;height: 80%;width: 84%;padding: 5%">
-        <button id="loginBtn" style="width: 70%;height: 10%" @click="jumpToSheet">考勤卡管理</button>
+        <button id="loginBtn" style="width: 70%;height: 10%;font-size: 20px" @click="jumpToSheet">考勤卡管理</button>
       </div>
     </div>
 

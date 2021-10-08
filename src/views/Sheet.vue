@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="sheetMain">
 
     <div id="title">
       <h1>{{ this.$cookies.get('userName') }}考勤卡</h1>
@@ -323,12 +323,13 @@ export default {
 }
 </script>
 
-<style>
-#main {
+<style scoped>
+#sheetMain {
   position: fixed;
   float: left;
   height: 100%;
   max-width: 80%;
+  min-width: 80%;
   text-align: center;
 }
 

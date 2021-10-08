@@ -5,7 +5,7 @@
       <h1>{{ this.$cookies.get('userName') }}考勤卡</h1>
     </div>
 
-    <div id="timeCards">
+    <div id="timeCards" v-loading="loading" element-loading-text="拼命加载中">
       <table style="width: 100%;text-align: center;font-size: 30px">
         <thead>
         <tr>
@@ -18,40 +18,160 @@
         <tbody>
         <tr>
           <td>周一</td>
-          <td><input id="MonStartInput" placeholder="上班时间" type="time" v-model="cards.Mon.start"></td>
-          <td><input id="MonEndInput" placeholder="下班时间" type="time" v-model="cards.Mon.end"></td>
+          <td>
+            <el-time-select
+              placeholder="上班时间"
+              v-model="cards.Mon.start"
+              default-value="10:00"
+              :disabled="cards.Mon.commit"
+              :picker-options="{
+                start: '07:00',
+                step: '00:30',
+                end: '21:30',
+                maxTime: cards.Mon.end
+              }"></el-time-select>
+          </td>
+          <td>
+            <el-time-select
+              placeholder="下班时间"
+              v-model="cards.Mon.end"
+              default-value="20:00"
+              :disabled="cards.Mon.commit"
+              :picker-options="{
+                start: '07:30',
+                step: '00:30',
+                end: '22:00',
+                minTime: cards.Mon.start,
+              }"></el-time-select>
+          </td>
           <td>
             <button id="MonSubmit" @click="confirmSubmit(1)">提交</button>
           </td>
         </tr>
         <tr>
           <td>周二</td>
-          <td><input id="TueStartInput" placeholder="上班时间" type="time" v-model="cards.Tue.start"></td>
-          <td><input id="TueEndInput" placeholder="下班时间" type="time" v-model="cards.Tue.end"></td>
+          <td>
+            <el-time-select
+              placeholder="上班时间"
+              v-model="cards.Tue.start"
+              default-value="10:00"
+              :disabled="cards.Tue.commit"
+              :picker-options="{
+                start: '07:00',
+                step: '00:30',
+                end: '21:30',
+                maxTime: cards.Tue.end
+              }"></el-time-select>
+          </td>
+          <td>
+            <el-time-select
+              placeholder="下班时间"
+              v-model="cards.Tue.end"
+              default-value="20:00"
+              :disabled="cards.Tue.commit"
+              :picker-options="{
+                start: '07:30',
+                step: '00:30',
+                end: '22:00',
+                minTime: cards.Tue.start,
+              }"></el-time-select>
+          </td>
           <td>
             <button id="TueSubmit" @click="confirmSubmit(2)">提交</button>
           </td>
         </tr>
         <tr>
           <td>周三</td>
-          <td><input id="WedStartInput" placeholder="上班时间" type="time" v-model="cards.Wed.start"></td>
-          <td><input id="WedEndInput" placeholder="下班时间" type="time" v-model="cards.Wed.end"></td>
+          <td>
+            <el-time-select
+              placeholder="上班时间"
+              v-model="cards.Wed.start"
+              default-value="10:00"
+              :disabled="cards.Wed.commit"
+              :picker-options="{
+                start: '07:00',
+                step: '00:30',
+                end: '21:30',
+                maxTime: cards.Wed.end
+              }"></el-time-select>
+          </td>
+          <td>
+            <el-time-select
+              placeholder="下班时间"
+              v-model="cards.Wed.end"
+              default-value="20:00"
+              :disabled="cards.Wed.commit"
+              :picker-options="{
+                start: '07:30',
+                step: '00:30',
+                end: '22:00',
+                minTime: cards.Wed.start,
+              }"></el-time-select>
+          </td>
           <td>
             <button id="WedSubmit" @click="confirmSubmit(3)">提交</button>
           </td>
         </tr>
         <tr>
           <td>周四</td>
-          <td><input id="ThuStartInput" placeholder="上班时间" type="time" v-model="cards.Thu.start"></td>
-          <td><input id="ThuEndInput" placeholder="下班时间" type="time" v-model="cards.Thu.end"></td>
+          <td>
+            <el-time-select
+              placeholder="上班时间"
+              v-model="cards.Thu.start"
+              default-value="10:00"
+              :disabled="cards.Thu.commit"
+              :picker-options="{
+                start: '07:00',
+                step: '00:30',
+                end: '21:30',
+                maxTime: cards.Thu.end
+              }"></el-time-select>
+          </td>
+          <td>
+            <el-time-select
+              placeholder="下班时间"
+              v-model="cards.Thu.end"
+              default-value="20:00"
+              :disabled="cards.Thu.commit"
+              :picker-options="{
+                start: '07:30',
+                step: '00:30',
+                end: '22:00',
+                minTime: cards.Thu.start,
+              }"></el-time-select>
+          </td>
           <td>
             <button id="ThuSubmit" @click="confirmSubmit(4)">提交</button>
           </td>
         </tr>
         <tr>
           <td>周五</td>
-          <td><input id="FriStartInput" placeholder="上班时间" type="time" v-model="cards.Fri.start"></td>
-          <td><input id="FriEndInput" placeholder="下班时间" type="time" v-model="cards.Fri.end"></td>
+          <td>
+            <el-time-select
+              placeholder="上班时间"
+              v-model="cards.Fri.start"
+              default-value="10:00"
+              :disabled="cards.Fri.commit"
+              :picker-options="{
+                start: '07:00',
+                step: '00:30',
+                end: '21:30',
+                maxTime: cards.Fri.end
+              }"></el-time-select>
+          </td>
+          <td>
+            <el-time-select
+              placeholder="下班时间"
+              v-model="cards.Fri.end"
+              default-value="20:00"
+              :disabled="cards.Fri.commit"
+              :picker-options="{
+                start: '07:30',
+                step: '00:30',
+                end: '22:00',
+                minTime: cards.Fri.start,
+              }"></el-time-select>
+          </td>
           <td>
             <button id="FriSubmit" @click="confirmSubmit(5)">提交</button>
           </td>
@@ -106,6 +226,7 @@ export default {
         },
       },
       sheetVO: [],
+      loading: false,
     }
   },
   created() {
@@ -113,9 +234,12 @@ export default {
   },
   methods: {
     querySheet(id) {
+      this.loading = true
       fetch('/apis/Sheet/query?eid=' + id, {method: 'get'})
         .then(res => res.json())
         .then(res => this.parseQuery(res.content))
+        .then(() => this.loading = false)
+        .catch(e => {this.loading = false; this.$message.error('读取考勤卡失败')})
     },
     parseQuery(res) {
       res.forEach((item, i) => {
@@ -164,28 +288,18 @@ export default {
         week = 7;
       if (this.cards.Mon.commit === 1 || week < 1) {
         document.getElementById("MonSubmit").disabled = true;
-        document.getElementById("MonStartInput").disabled = true;
-        document.getElementById("MonEndInput").disabled = true;
       }
       if (this.cards.Tue.commit === 1 || week < 2) {
         document.getElementById("TueSubmit").disabled = true;
-        document.getElementById("TueStartInput").disabled = true;
-        document.getElementById("TueEndInput").disabled = true;
       }
       if (this.cards.Wed.commit === 1 || week < 3) {
         document.getElementById("WedSubmit").disabled = true;
-        document.getElementById("WedStartInput").disabled = true;
-        document.getElementById("WedEndInput").disabled = true;
       }
       if (this.cards.Thu.commit === 1 || week < 4) {
         document.getElementById("ThuSubmit").disabled = true;
-        document.getElementById("ThuStartInput").disabled = true;
-        document.getElementById("ThuEndInput").disabled = true;
       }
       if (this.cards.Fri.commit === 1 || week < 5) {
         document.getElementById("FriSubmit").disabled = true;
-        document.getElementById("FriStartInput").disabled = true;
-        document.getElementById("FriEndInput").disabled = true;
       }
     },
     confirmSubmit(weekend) {
@@ -257,6 +371,7 @@ export default {
       }, 300)
     },
     saveAllCards() {
+      this.loading = true
       if (this.cards.Mon.start !== '' && this.cards.Mon.commit !== '' && this.cards.Mon.commit !== 1) {
         if (this.cards.Mon.aid == null) {
           fetch('/apis/Sheet/add?eid=' + this.$cookies.get('userName')
@@ -316,8 +431,9 @@ export default {
             {method: 'get'})
         }
       }
-      window.alert('保存成功');
-      this.querySheet(this.$cookies.get('userName'));
+      setTimeout(() => {
+        this.querySheet(this.$cookies.get('userName'), this.$message({message: '保存成功', type: 'success'}))
+      }, 400);
     },
   }
 }
@@ -367,6 +483,7 @@ th {
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
 }
+
 @-webkit-keyframes shine {
   0% {
     background-position-x: 400%;

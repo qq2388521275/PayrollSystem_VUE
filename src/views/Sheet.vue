@@ -324,15 +324,6 @@ export default {
 </script>
 
 <style scoped>
-#sheetMain {
-  position: fixed;
-  float: left;
-  height: 100%;
-  max-width: 80%;
-  min-width: 80%;
-  text-align: center;
-}
-
 table {
   border: 1px solid #e9e9e9;
   border-collapse: collapse;

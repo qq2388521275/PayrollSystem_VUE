@@ -5,9 +5,12 @@ import App from './App'
 import router from './router'
 import VueCookies from 'vue-cookies'
 import $ from 'jquery'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueCookies)
 Vue.use($)
+Vue.use(ElementUI);
 
 // import axios from "axios";
 // Vue.prototype.$axios = axios

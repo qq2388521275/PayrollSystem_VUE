@@ -10,7 +10,7 @@
         router="false"
       >
         <el-menu-item index="1" route="/Sheet">
-          <i class="el-icon-s-claim"></i>
+          <i class="el-icon-finished"></i>
           <span slot="title">考勤卡</span>
         </el-menu-item>
         <el-submenu index="2">
@@ -19,17 +19,11 @@
             <span>用户管理</span>
           </template>
           <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="/employee/add"><i class="el-icon-circle-plus-outline"></i>添加员工</el-menu-item>
+            <el-menu-item index="/employee/delete"><i class="el-icon-remove-outline"></i>删除员工</el-menu-item>
+            <el-menu-item index="/employee/query"><i class="el-icon-search"></i>查询员工信息</el-menu-item>
+            <el-menu-item index="/employee/edit"><i class="el-icon-edit  "></i>编辑员工信息</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
         </el-submenu>
         <el-menu-item index="3" disabled>
           <i class="el-icon-document"></i>
@@ -66,7 +60,6 @@ export default {
 
 .el-main {
   /*background-color: #E9EEF3;*/
-  text-align: center;
 }
 
 .el-menu {

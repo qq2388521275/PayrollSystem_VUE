@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetMain">
+  <div id="sheetMain" style="text-align: center">
 
     <div id="title">
       <h1>{{ this.$cookies.get('userName') }}考勤卡</h1>

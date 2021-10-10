@@ -20,9 +20,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="/employee/add"><i class="el-icon-circle-plus-outline"></i>添加员工</el-menu-item>
-            <el-menu-item index="/employee/delete"><i class="el-icon-remove-outline"></i>删除员工</el-menu-item>
             <el-menu-item index="/employee/query"><i class="el-icon-search"></i>查询员工信息</el-menu-item>
-            <el-menu-item index="/employee/edit"><i class="el-icon-edit  "></i>编辑员工信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-menu-item index="3" disabled>

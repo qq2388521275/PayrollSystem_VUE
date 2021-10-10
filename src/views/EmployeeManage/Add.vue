@@ -3,9 +3,9 @@
            :rules="rules" v-loading="loading" element-loading-text="处理中">
     <el-form-item label="员工类型">
       <el-radio-group v-model="form.paytype">
-        <el-radio label="1">小时工</el-radio>
-        <el-radio label="2">带薪</el-radio>
-        <el-radio label="3">销售员</el-radio>
+        <el-radio label="小时工">小时工</el-radio>
+        <el-radio label="带薪">带薪</el-radio>
+        <el-radio label="销售员">销售员</el-radio>
       </el-radio-group>
     </el-form-item>
 
@@ -15,9 +15,9 @@
 
     <el-form-item label="付款方式">
       <el-radio-group v-model="form.salaryway">
-        <el-radio label="1">自取</el-radio>
-        <el-radio label="2">邮寄支票</el-radio>
-        <el-radio label="3">转账</el-radio>
+        <el-radio label="自取">自取</el-radio>
+        <el-radio label="邮寄支票">邮寄支票</el-radio>
+        <el-radio label="转账">转账</el-radio>
       </el-radio-group>
     </el-form-item>
 
@@ -27,8 +27,8 @@
 
     <el-form-item label="员工性别">
       <el-radio-group v-model="form.esex">
-        <el-radio label="1">男</el-radio>
-        <el-radio label="2">女</el-radio>
+        <el-radio label="男">男</el-radio>
+        <el-radio label="女">女</el-radio>
       </el-radio-group>
     </el-form-item>
 
@@ -50,7 +50,7 @@
     </el-form-item>
 
     <el-form-item label="税收减免">
-      <el-input type="text" v-model="form.tex_remisstion" maxlength="20" style="width: 5%" size="small"></el-input>
+      <el-input type="text" v-model="form.tex_remission" maxlength="20" style="width: 5%" size="small"></el-input>
     </el-form-item>
 
     <el-form-item label="工时限制">
@@ -95,15 +95,15 @@ export default {
     };
     return {
       form: {
-        paytype: '1',
-        salaryway: '1',
+        paytype: '带薪',
+        salaryway: '自取',
         ename: null,
-        esex: '1',
+        esex: '男',
         eposition: null,
         department: null,
         phonenumber: null,
         email: null,
-        tex_remisstion: 0,
+        tex_remission: 0,
         timelimit: 0,
         vacation_day: 0,
         eid: null,

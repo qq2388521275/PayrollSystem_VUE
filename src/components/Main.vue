@@ -23,10 +23,16 @@
             <el-menu-item index="/employee/query"><i class="el-icon-search"></i>查询员工信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-s-order"></i>
+            <span>销售账单管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/order/add"><i class="el-icon-circle-plus-outline"></i>添加订单</el-menu-item>
+            <el-menu-item index="/order/query"><i class="el-icon-search"></i>查询订单</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
         <el-menu-item index="4" disabled>
           <i class="el-icon-setting"></i>
           <span slot="title">导航四</span>

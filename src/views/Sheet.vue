@@ -288,18 +288,23 @@ export default {
         week = 7;
       if (this.cards.Mon.commit === 1 || week < 1) {
         document.getElementById("MonSubmit").disabled = true;
+        this.cards.Mon.commit = 1;
       }
       if (this.cards.Tue.commit === 1 || week < 2) {
         document.getElementById("TueSubmit").disabled = true;
+        this.cards.Tue.commit = 1;
       }
       if (this.cards.Wed.commit === 1 || week < 3) {
         document.getElementById("WedSubmit").disabled = true;
+        this.cards.Wed.commit = 1;
       }
       if (this.cards.Thu.commit === 1 || week < 4) {
         document.getElementById("ThuSubmit").disabled = true;
+        this.cards.Thu.commit = 1;
       }
       if (this.cards.Fri.commit === 1 || week < 5) {
         document.getElementById("FriSubmit").disabled = true;
+        this.cards.Fri.commit = 1;
       }
     },
     confirmSubmit(weekend) {

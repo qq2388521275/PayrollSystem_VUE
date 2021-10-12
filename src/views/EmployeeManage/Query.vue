@@ -12,7 +12,6 @@
       <el-table-column prop="esex" label="性别" width="60"></el-table-column>
       <el-table-column prop="paytype" label="员工类型" width="80"></el-table-column>
       <el-table-column prop="salaryway" label="支付方式" width="100"></el-table-column>
-      <el-table-column prop="hoursalary" label="小时工资" width="80"></el-table-column>
       <el-table-column prop="eposition" label="职位" width="100"></el-table-column>
       <el-table-column prop="department" label="部门" width="100"></el-table-column>
       <el-table-column prop="phonenumber" label="电话" width="150"></el-table-column>
@@ -20,6 +19,9 @@
       <el-table-column prop="tex_remission" label="税收减免" width="80"></el-table-column>
       <el-table-column prop="timelimit" label="工时限制" width="80"></el-table-column>
       <el-table-column prop="vacation_day" label="年假" width="80"></el-table-column>
+      <el-table-column prop="hoursalary" label="小时工资" width="80"></el-table-column>
+      <el-table-column prop="salaryrate" label="佣金率" width="80"></el-table-column>
+      <el-table-column prop="salary" label="工资" width="80"></el-table-column>
 
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
@@ -30,7 +32,7 @@
     </el-table>
 
     <el-dialog title="编辑员工" :visible.sync="dialogFormVisible">
-      <el-form :model="tableData[dialogIndex]">
+      <el-form :model="tableData[dialogIndex]" :rules="rules">
         <el-form-item label="员工类型">
           <el-radio-group v-model="tableData[dialogIndex].paytype">
             <el-radio label="小时工">小时工</el-radio>
@@ -38,8 +40,22 @@
             <el-radio label="销售员">销售员</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="小时薪资">
-          <el-input type="text" v-model="tableData[dialogIndex].hoursalary" maxlength="20" style="width: 10%" size="small"></el-input>
+        <el-form-item label="工资" v-if="tableData[dialogIndex].paytype === '带薪' || tableData[dialogIndex].paytype === '销售员'"
+                      prop="salary" :rules="[{ type: 'number', message: '请输入正确格式'}]">
+          <el-input v-model.number="tableData[dialogIndex].salary" auto-complete="off" maxlength="20" style="width: 12%"
+                    size="small"></el-input>
+        </el-form-item>
+
+        <el-form-item label="佣金率" v-if="tableData[dialogIndex].paytype === '销售员'"
+                      prop="salaryrate">
+          <el-input v-model="tableData[dialogIndex].salaryrate" auto-complete="off" maxlength="20" style="width: 10%" type="float"
+                    size="small"></el-input>
+          %
+        </el-form-item>
+        <el-form-item label="小时薪资" v-if="tableData[dialogIndex].paytype === '小时工'"
+                      prop="hoursalary" :rules="[{ type: 'number', message: '请输入正确格式'}]">
+          <el-input v-model.number="tableData[dialogIndex].hoursalary" auto-complete="off" maxlength="20" style="width: 10%"
+                    size="small"></el-input>
         </el-form-item>
         <el-form-item label="付款方式">
           <el-radio-group  v-model="tableData[dialogIndex].salaryway">
@@ -99,11 +115,24 @@
 export default {
   name: "Query",
   data() {
+    var validateAcquaintance = (rule, value, callback) => {
+      if (value > 1) {
+        callback(new Error('请输入小于1的小数'))
+      } else {
+        callback()
+      }
+    };
     return {
       tableData: [{}],
       loading: false,
       dialogFormVisible: false,
       dialogIndex: 0,
+      rules: {
+        salaryrate: [
+          {pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/, message: '请输入大于两位的小数', trigger: 'blur'},
+          {validator: validateAcquaintance, trigger: 'blur'}
+        ],
+      },
     }
   },
   created() {

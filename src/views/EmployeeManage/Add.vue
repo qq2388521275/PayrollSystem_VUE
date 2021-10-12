@@ -9,8 +9,22 @@
       </el-radio-group>
     </el-form-item>
 
-    <el-form-item label="小时薪资">
-      <el-input type="text" v-model="form.hoursalary" maxlength="20" style="width: 5%" size="small"></el-input>
+    <el-form-item label="工资" v-if="form.paytype === '带薪' || form.paytype === '销售员'"
+                  prop="salary" :rules="[{ type: 'number', message: '请输入正确格式'}]">
+      <el-input v-model.number="form.salary" auto-complete="off" maxlength="20" style="width: 12%"
+                size="small"></el-input>
+    </el-form-item>
+
+    <el-form-item label="佣金率" v-if="form.paytype === '销售员'"
+                  prop="salaryrate">
+      <el-input v-model="form.salaryrate" auto-complete="off" maxlength="20" style="width: 10%" type="float"
+                size="small"></el-input>
+      %
+    </el-form-item>
+    <el-form-item label="小时薪资" v-if="form.paytype === '小时工'"
+                  prop="hoursalary" :rules="[{ type: 'number', message: '请输入正确格式'}]">
+      <el-input v-model.number="form.hoursalary" auto-complete="off" maxlength="20" style="width: 10%"
+                size="small"></el-input>
     </el-form-item>
 
     <el-form-item label="付款方式">
@@ -93,8 +107,16 @@ export default {
         callback();
       }
     };
+    var validateAcquaintance = (rule, value, callback) => {
+      if (value > 1) {
+        callback(new Error('请输入小于1的小数'))
+      } else {
+        callback()
+      }
+    };
     return {
       form: {
+        eid: null,
         paytype: '带薪',
         salaryway: '自取',
         ename: null,
@@ -106,16 +128,22 @@ export default {
         tex_remission: 0,
         timelimit: 0,
         vacation_day: 0,
-        eid: null,
         password: null,
         password1: null,
 
-        hoursalary: 20,
+        hoursalary: null,
+        salary: null,
+        salaryrate: null,
+
       },
       rules: {
         password1: [
           {validator: validatePass2, trigger: 'blur'}
         ],
+        salaryrate: [
+          {pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/, message: '请输入大于两位的小数', trigger: 'change'},
+          {validator: validateAcquaintance, trigger: 'blur'}
+        ]
       },
       loading: false,
     }

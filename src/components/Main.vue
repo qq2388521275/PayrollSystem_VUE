@@ -33,9 +33,9 @@
             <el-menu-item index="/order/query"><i class="el-icon-search"></i>查询订单</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="4" disabled>
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
+        <el-menu-item index="4" route="/payroll">
+          <i class="el-icon-wallet"></i>
+          <span slot="title">工资条</span>
         </el-menu-item>
       </el-menu>
     </el-aside>

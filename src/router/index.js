@@ -8,6 +8,7 @@ import Add from '../views/EmployeeManage/Add'
 import Query from '../views/EmployeeManage/Query'
 import OrderAdd from  '../views/OrderManage/OrderAdd'
 import OrderQuery from "../views/OrderManage/OrderQuery";
+import Admin from '../views/PayRoll/Admin'
 
 Vue.use(Router)
 
@@ -44,6 +45,10 @@ export default new Router({
         {
           path:'/order/query',
           component:OrderQuery
+        },
+        {
+          path:'/payroll',
+          component:Admin
         },
       ],
     },
